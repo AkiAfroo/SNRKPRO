@@ -77,7 +77,8 @@ minalogo
                   coda client set-snark-work-fee "${MINAFEE}"
                   countdown 300
 else
-minalogo 
+minalogo
+coda client set-snark-worker
 echo "daemon is not synced..wait"
 countdown 300
 fi
