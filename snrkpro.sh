@@ -78,7 +78,7 @@ minalogo
                   countdown 300
 else
 minalogo
-coda client set-snark-worker
+coda client set-snark-worker >/dev/null 2>&1
 echo "daemon is not synced..wait"
 countdown 300
 fi
