@@ -7,3 +7,6 @@ the demo1 include only: set fee.
 play with fees as Jordan Belfort in The Wolf of Wall Street
 
 [![snrkpro-demo1-fee.png](https://i.postimg.cc/t4pj0sNL/snrkpro-demo1-fee.png)]
+
+
+who to run: , `bash snrkpro.sh`
