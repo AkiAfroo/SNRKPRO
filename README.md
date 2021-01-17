@@ -13,4 +13,4 @@ Download:
 `wget https://raw.githubusercontent.com/AkiAfroo/SNRKPRO/main/snrkpro.sh`
 
 
-who to run: , `bash snrkpro.sh`
+how to run: , `bash snrkpro.sh`
