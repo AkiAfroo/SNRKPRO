@@ -52,7 +52,7 @@ MINANET=$(cat /tmp/coda_client_status.json | grep -Po '(?<="sync_status":)\W*\K[
 if [[ ${MINANET}  == "Synced" ]]; then 
 MINAUPTIME=$(cat /tmp/coda_client_status.json | grep -Po '(?<="uptime_secs":)\W*\K[^ ,]*')
 MINA_LOCAL_BLOCKHEIGHTS="$(cat /tmp/coda_client_status.json | grep -Po '(?<="blockchain_length":)\W*\K[^ ,]*')"
-#HIGHEST__BLOCK_LENGHT_RECEIVED="$(cat /tmp/coda_client_status.json | grep -Po '(?<="highest_block_length_received":)\W*\K[^ ,]*')"
+HIGHEST__BLOCK_LENGHT_RECEIVED="$(cat /tmp/coda_client_status.json | grep -Po '(?<="highest_block_length_received":)\W*\K[^ ,]*')"
 read mina1 < <(echo $(cat /tmp/latest-blocks.json | jq -cr '.[].BlockchainLength' | sort -n | tail -1 | awk '{ gsub (" ", "", $0); print}'))
 read mina2 mina3 < <(echo $(cat /tmp/latest-blocks.json | jq -cr '.[0].User','.[0].Creator' | awk '{ gsub (" ", "", $0); print}'))
 if [[ "$MINA_RANDOM_FEE_NUMBER" == 0 ]]; then
@@ -65,13 +65,14 @@ minalogo
                   echo ""
                   echo ""
                   echo "Minaexplorer is Online Getting Last BLock and compare with your Heights"
-                  echo  "Your Local uptime     :$(date -d@"$MINAUPTIME" -u +%H:%M:%S)"  
-                  echo  "Your Block Height     :$MINA_LOCAL_BLOCKHEIGHTS"
-                  echo  "Last Block            :"$mina1  
-                  echo  "Produced By           :"$mina2
-                  echo  "Mina Address          :"$mina3 
-                  echo  ""
-                  echo "my fees               : ${MINAFEE}"
+                  echo "Your Local uptime     :$(date -d@"$MINAUPTIME" -u +%H:%M:%S)"  
+                  echo "Your Block Height     :$MINA_LOCAL_BLOCKHEIGHTS"
+                  echo "Max O.B Height        :$HIGHEST__BLOCK_LENGHT_RECEIVED" 
+                  echo "Explorer Last Block   :"$mina1  
+                  echo "Produced By           :"$mina2
+                  echo "Mina Address          :"$mina3 
+                  echo ""
+                  echo "my fees               :${MINAFEE}"
                   coda client set-snark-work-fee "${MINAFEE}"
                   countdown 300
 else
