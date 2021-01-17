@@ -40,11 +40,12 @@ function countdown() {
 
 function snarkfee(){
 clear
-coda client set-snark-worker -address $MINA_PUBLIC_KEY
 echo "Launching SNRKPRO.. wait!"
 countdown 5 
 while true  
 do
+coda client set-snark-worker -address $MINA_PUBLIC_KEY
+
 clear
 curl --silent -o /tmp/latest-blocks.json "https://minaexplorer.com/latest-blocks"
 coda client status -json > /tmp/coda_client_status.json
