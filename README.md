@@ -8,5 +8,9 @@ play with fees as Jordan Belfort in The Wolf of Wall Street (edit those paramete
 
 [![snrkpro-demo1-fee.png](https://i.postimg.cc/t4pj0sNL/snrkpro-demo1-fee.png)]
 
+Download:
+
+`wget https://raw.githubusercontent.com/AkiAfroo/SNRKPRO/main/snrkpro.sh`
+
 
 who to run: , `bash snrkpro.sh`
