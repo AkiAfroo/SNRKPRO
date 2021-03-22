@@ -27,7 +27,7 @@ cat <<"EOT"
 #######################-MINA SNARKER-###########################      
 
 EOT
-echo "CODA VERSION: $(cat /tmp/coda_client_status.json | grep -Po '(?<="commit_id":)\W*\K[^ "]*')"
+echo "MINA VERSION: $(cat /tmp/mina_client_status.json | grep -Po '(?<="commit_id":)\W*\K[^ "]*')"
 }
 
 function countdown() {
@@ -44,16 +44,16 @@ echo "Launching SNRKPRO.. wait!"
 countdown 5 
 while true  
 do
-coda client set-snark-worker -address $MINA_PUBLIC_KEY
+mina client set-snark-worker -address $MINA_PUBLIC_KEY
 
 clear
 curl --silent -o /tmp/latest-blocks.json "https://minaexplorer.com/latest-blocks"
-coda client status -json > /tmp/coda_client_status.json
-MINANET=$(cat /tmp/coda_client_status.json | grep -Po '(?<="sync_status":)\W*\K[^ "]*') 
+mina client status -json > /tmp/mina_client_status.json
+MINANET=$(cat /tmp/mina_client_status.json | grep -Po '(?<="sync_status":)\W*\K[^ "]*') 
 if [[ ${MINANET}  == "Synced" ]]; then 
-MINAUPTIME=$(cat /tmp/coda_client_status.json | grep -Po '(?<="uptime_secs":)\W*\K[^ ,]*')
-MINA_LOCAL_BLOCKHEIGHTS="$(cat /tmp/coda_client_status.json | grep -Po '(?<="blockchain_length":)\W*\K[^ ,]*')"
-HIGHEST__BLOCK_LENGHT_RECEIVED="$(cat /tmp/coda_client_status.json | grep -Po '(?<="highest_block_length_received":)\W*\K[^ ,]*')"
+MINAUPTIME=$(cat /tmp/mina_client_status.json | grep -Po '(?<="uptime_secs":)\W*\K[^ ,]*')
+MINA_LOCAL_BLOCKHEIGHTS="$(cat /tmp/mina_client_status.json | grep -Po '(?<="blockchain_length":)\W*\K[^ ,]*')"
+HIGHEST__BLOCK_LENGHT_RECEIVED="$(cat /tmp/mina_client_status.json | grep -Po '(?<="highest_block_length_received":)\W*\K[^ ,]*')"
 read mina1 < <(echo $(cat /tmp/latest-blocks.json | jq -cr '.[].BlockchainLength' | sort -n | tail -1 | awk '{ gsub (" ", "", $0); print}'))
 read mina2 mina3 < <(echo $(cat /tmp/latest-blocks.json | jq -cr '.[0].User','.[0].Creator' | awk '{ gsub (" ", "", $0); print}'))
 if [[ "$MINA_RANDOM_FEE_NUMBER" == 0 ]]; then
@@ -74,11 +74,11 @@ minalogo
                   echo "Mina Address          :"$mina3 
                   echo ""
                   echo "my fees               :${MINAFEE}"
-                  coda client set-snark-work-fee "${MINAFEE}"
+                  mina client set-snark-work-fee "${MINAFEE}"
                   countdown 300
 else
 minalogo
-coda client set-snark-worker >/dev/null 2>&1
+mina client set-snark-worker >/dev/null 2>&1
 echo "daemon is not synced..wait"
 countdown 300
 fi
